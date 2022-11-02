@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<ID,E> {
 
-    private Validator<E> validator;
+    private final Validator<E> validator;
     Map<ID,E> entities;
 
     public InMemoryRepository(Validator<E> validator) {
@@ -42,8 +42,13 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
     }
 
     @Override
-    public void delete(ID id) {
-        entities.remove(id);
+    public E delete(ID id) {
+        if(entities.containsKey(id)){
+            E entity = entities.get(id);
+            entities.remove(id);
+            return entity;
+        }
+        return null;
     }
 }
 

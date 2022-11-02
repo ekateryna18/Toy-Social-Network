@@ -1,12 +1,12 @@
 package domain;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Utilizator extends Entity<Long>{
     private String firstName;
     private String lastName;
-    private String email;
+
+    //private String email;
     //private List<Utilizator> friends;
 
     public Utilizator(String firstName, String lastName){
@@ -22,10 +22,6 @@ public class Utilizator extends Entity<Long>{
         return lastName;
     }
 
-    /*public List<Utilizator> getFriends() {
-        return friends;
-    }*/
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -34,16 +30,13 @@ public class Utilizator extends Entity<Long>{
         this.lastName = lastName;
     }
 
-    /*public void setFriends(List<Utilizator> friends) {
-        this.friends = friends;
-    }*/
 
     @Override
     public String toString() {
-        return "Utilizator{"+
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '}';
-        //'\'' + ", friends=" + friends + '}';
+        return "Utilizator: "+
+                "---firstName=" + firstName +
+                "---lastName='" + lastName ;
+
     }
 
     @Override
@@ -53,12 +46,10 @@ public class Utilizator extends Entity<Long>{
         Utilizator that = (Utilizator) o;
         return getFirstName().equals(that.getFirstName())
                 && getLastName().equals(that.getLastName());
-                //&& getFriends().equals(that.getFriends());
     }
 
     @Override
     public int hashCode() {
-        //return Objects.hash(getFirstName(), getLastName(), getFriends());
         return Objects.hash(getFirstName(), getLastName());
     }
 

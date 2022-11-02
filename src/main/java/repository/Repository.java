@@ -50,7 +50,7 @@ public interface Repository<ID, E extends Entity<ID>> {
      * @throws IllegalArgumentException
      *                   if the given id is null.
      */
-    void delete(ID id);
+    E delete(ID id);
 
     /**
      *
