@@ -1,9 +1,19 @@
 package domain.validators;
 
+/**
+ * exception class for validating
+ */
 public class ValidationException extends RuntimeException{
+    /**
+     * constructor
+     */
     public ValidationException() {
     }
 
+    /**
+     * function for exception
+     * @param message message of the exception thrown
+     */
     public ValidationException(String message) {
         super(message);
     }

@@ -12,7 +12,7 @@ import domain.validators.ValidationException;
 public interface Repository<ID, E extends Entity<ID>> {
 
     /**
-     *
+     * the repository interface
      * @param id -the id of the entity to be returned
      *           id must not be null
      * @return the entity with the specified id
@@ -23,13 +23,13 @@ public interface Repository<ID, E extends Entity<ID>> {
     E findOne(ID id);
 
     /**
-     *
+     * function to get all the entities
      * @return all entities
      */
     Iterable<E> findAll();
 
     /**
-     *
+     * function to save an entity
      * @param entity
      *         entity must be not null
      * @return null- if the given entity is saved
@@ -51,7 +51,6 @@ public interface Repository<ID, E extends Entity<ID>> {
      *                   if the given id is null.
      */
     E delete(ID id);
-
     /**
      *
      * @param entity
@@ -63,6 +62,6 @@ public interface Repository<ID, E extends Entity<ID>> {
      * @throws ValidationException
      *             if the entity is not valid.
      */
-    //E update(E entity);
+    E update(E entity);
 
 }
