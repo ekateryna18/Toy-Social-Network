@@ -1,3 +1,4 @@
+/*
 package repository.file;
 import domain.Friendship;
 import domain.validators.Validator;
@@ -23,3 +24,4 @@ public class FriendshipFile extends AbstractFileRepository<Long,Friendship> {
                 ";" + entity.getId2();
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package repository.file;
 
 import domain.Entity;
@@ -48,12 +49,14 @@ public abstract class AbstractFileRepository<ID, E extends Entity<ID>> extends I
 
     }
 
-    /**
+    */
+/**
      *  extract entity  - template method design pattern
      *  creates an entity of type E having a specified list of @code attributes
      * @param attributes attributes for the entity
      * @return an entity of type E
-     */
+     *//*
+
     public abstract E extractEntity(List<String> attributes);
     protected abstract String createEntityAsString(E entity);
 
@@ -114,3 +117,4 @@ public abstract class AbstractFileRepository<ID, E extends Entity<ID>> extends I
 
 
 
+*/

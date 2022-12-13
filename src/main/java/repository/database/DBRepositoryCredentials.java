@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DBRepositoryCredentials implements Repository<Long, Credentials> {
-    private String url;
-    private String username;
-    private String password;
+    private final String url;
+    private final String username;
+    private final String password;
 
     public DBRepositoryCredentials(String url, String username, String password){
         this.url = url;
@@ -24,8 +24,8 @@ public class DBRepositoryCredentials implements Repository<Long, Credentials> {
             if(rs.next()){
                 return new Credentials(
                         rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getLong("id")
+                        rs.getString("hashed_password"),
+                        rs.getLong("id_u")
                 );
             }
         } catch (SQLException ignored) {
@@ -36,8 +36,9 @@ public class DBRepositoryCredentials implements Repository<Long, Credentials> {
     public Credentials findOne(Long aLong) throws IllegalArgumentException{
         return findOneBySQL(String.format("SELECT * FROM credentials WHERE id_u = %s", aLong));
     }
-    public Credentials findOne(String username) throws IllegalArgumentException {
-        return findOneBySQL(String.format("SELECT * FROM credentials WHERE username = '%s'", username));
+    @Override
+    public Credentials findOneString(String usern) throws IllegalArgumentException {
+        return findOneBySQL(String.format("SELECT * FROM credentials WHERE username = '%s'", usern));
     }
     @Override
     public Iterable<Credentials> findAll() {
@@ -49,10 +50,10 @@ public class DBRepositoryCredentials implements Repository<Long, Credentials> {
 
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id_u");
-                String username = resultSet.getString("username");
+                String usern = resultSet.getString("username");
                 String hashpassword = resultSet.getString("hashed_password");
 
-                Credentials cred = new Credentials(username, hashpassword,id);
+                Credentials cred = new Credentials(usern, hashpassword,id);
                 creds.add(cred);
             }
             return creds;
@@ -64,7 +65,7 @@ public class DBRepositoryCredentials implements Repository<Long, Credentials> {
 
     @Override
     public Credentials save(Credentials entity) {
-        String sql = String.format("INSERT INTO credentials(id_u, username, password) values ('%s', '%s', '%s')",
+        String sql = String.format("INSERT INTO credentials(id_u, username, hashed_password) values ('%s', '%s', '%s')",
                 entity.getId(), entity.getUsername(), entity.getHashedPassword());
         try(Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement statement = connection.prepareStatement(sql))

@@ -53,8 +53,8 @@ public class Service implements ServiceIn{
         return Long.parseLong(l.toString());
     }
     @Override
-    public void addUserSrv(String firstName, String lastName){
-        Utilizator u = new Utilizator(firstName, lastName);
+    public void addUserSrv(String firstName, String lastName, String username){
+        Utilizator u = new Utilizator(firstName, lastName, username);
         u.setId(IDuser++);
         userRepo.save(u);
     }

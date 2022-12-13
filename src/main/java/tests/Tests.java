@@ -1,3 +1,4 @@
+/*
 package tests;
 
 import domain.Utilizator;
@@ -5,20 +6,11 @@ import domain.validators.UtilizatorValidator;
 import domain.validators.ValidationException;
 import java.util.*;
 
-/**
- * Tests class
- */
+
 public class Tests {
-    /**
-     * constructo for test class
-     */
     public Tests() {
     }
 
-    /**
-     * function to run the tests
-     * @throws Exception validation exceptions
-     */
     public static void run() throws Exception{
         testValidator();
         System.out.println("User validator tests succesful!\n");
@@ -48,3 +40,4 @@ public class Tests {
 
 
 }
+*/

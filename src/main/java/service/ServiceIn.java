@@ -12,7 +12,7 @@ public interface ServiceIn {
      * @param firstName: first name of the user
      * @param lastName: last name of the user
      */
-    public void addUserSrv(String firstName, String lastName);
+    public void addUserSrv(String firstName, String lastName, String username);
 
     /**
      *add friendship

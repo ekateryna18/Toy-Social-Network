@@ -1,5 +1,8 @@
 package domain;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.Objects;
 
 /**
@@ -14,15 +17,22 @@ public class Utilizator extends Entity<Long>{
      * last name of the user
      */
     private String lastName;
+    private String username;
+    private final StringProperty lastn = new SimpleStringProperty();
+    public final StringProperty lastnameProperty(){
+        return lastn;
+    }
+
 
     /**
      *user constructor
      * @param firstName : first name of the user
      * @param lastName : last name of the user
      */
-    public Utilizator(String firstName, String lastName){
+    public Utilizator(String firstName, String lastName, String username){
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
     }
 
     /**
@@ -56,6 +66,13 @@ public class Utilizator extends Entity<Long>{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     /**
      * override of toString()
@@ -65,7 +82,8 @@ public class Utilizator extends Entity<Long>{
     public String toString() {
         return "User >> "+
                 "  firstName: " + firstName +
-                "  lastName:  " + lastName ;
+                "  lastName:  " + lastName +
+                " username: " + username;
 
     }
 
@@ -80,7 +98,7 @@ public class Utilizator extends Entity<Long>{
         if (!(o instanceof Utilizator)) return false;
         Utilizator that = (Utilizator) o;
         return getFirstName().equals(that.getFirstName())
-                && getLastName().equals(that.getLastName());
+                && getLastName().equals(that.getLastName()) && getUsername().equals(that.username);
     }
 
     /**
@@ -89,7 +107,7 @@ public class Utilizator extends Entity<Long>{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getFirstName(), getLastName());
+        return Objects.hash(getFirstName(), getLastName(), getUsername());
     }
 
 }

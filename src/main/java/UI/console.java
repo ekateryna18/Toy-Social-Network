@@ -3,8 +3,6 @@ import domain.validators.FriendshipValidator;
 import domain.validators.UtilizatorValidator;
 import repository.database.FriendshipDBRepo;
 import repository.database.UserDBRepository;
-import repository.file.FriendshipFile;
-import repository.file.UtilizatorFile;
 import service.Service;
 
 
@@ -51,19 +49,19 @@ public class console {
     /**
      * befor launching the app, I added generated some users
      */
-    public void generate_users(){
-        srv.addUserSrv("Ana", "Maria");
-        srv.addUserSrv("Anamaria", "Elena");
-        srv.addUserSrv("Ana", "Mihaela");
-        srv.addUserSrv("Katy", "Munteanu");
-        srv.addUserSrv("Mihai", "Popa");
+    /*public void generate_users(){
+        srv.addUserSrv("Ana", "Maria", "anamaria");
+        srv.addUserSrv("Anamaria", "Elena", "anaelena");
+        srv.addUserSrv("Ana", "Mihaela", "anamiha");
+        srv.addUserSrv("Katy", "Munteanu", "katymnt");
+        srv.addUserSrv("Mihai", "Popa", "mihpopa");
         srv.addUserSrv("Elena", "Luminita");
         srv.addUserSrv("Katy", "Ioana");
 
         srv.addFrienship(0L, 1L);
         srv.addFrienship(1L, 2L);
         srv.addFrienship(3L, 6L);
-    }
+    }*/
 
     /**
      * adding user from console
@@ -75,7 +73,9 @@ public class console {
         String firstName = buff.readLine();
         System.out.println("Last name: ");
         String lastName = buff.readLine();
-        srv.addUserSrv(firstName,lastName);
+        System.out.println("username: ");
+        String username = buff.readLine();
+        srv.addUserSrv(firstName,lastName, username);
         System.out.println(">>>>USER ADDED<<<<<");
 
     }
@@ -200,6 +200,7 @@ public class console {
      */
     public void run(){
         //generate_users();
+
         int option;
         boolean ok = true;
         while(ok){

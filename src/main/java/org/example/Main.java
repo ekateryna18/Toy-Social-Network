@@ -1,6 +1,5 @@
 package org.example;
 import UI.console;
-import tests.Tests;
 import java.io.IOException;
 
 /**

@@ -11,10 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FriendshipDBRepo implements Repository<Long, Friendship> {
-    private String url;
-    private String username;
-    private String password;
-    private Validator<Friendship> validator;
+    private final String url;
+    private final String username;
+    private final String password;
+    private final Validator<Friendship> validator;
 
     public FriendshipDBRepo(String url, String username, String password, Validator<Friendship> validator) {
         this.url = url;
@@ -109,5 +109,10 @@ public class FriendshipDBRepo implements Repository<Long, Friendship> {
             e.printStackTrace();
             return entity;
         }
+    }
+
+    @Override
+    public Friendship findOneString(String str) {
+        return null;
     }
 }

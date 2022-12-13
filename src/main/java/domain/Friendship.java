@@ -22,6 +22,7 @@ public class Friendship extends Entity<Long>{
      * date of creating the friendship
      */
     LocalDateTime date;
+    String status;
 
     /**
      * Constructor for friendship

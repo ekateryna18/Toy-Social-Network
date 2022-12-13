@@ -10,10 +10,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UserDBRepository implements Repository<Long, Utilizator> {
-    private String url;
-    private String username;
-    private String password;
-    private Validator<Utilizator> validator;
+    private final String url;
+    private final String username;
+    private final String password;
+    private final Validator<Utilizator> validator;
 
     public UserDBRepository(String url, String username, String password, Validator<Utilizator> validator) {
         this.url = url;
@@ -33,8 +33,9 @@ public class UserDBRepository implements Repository<Long, Utilizator> {
                 Long id = resultSet.getLong("id");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
+                String username = resultSet.getString("username");
 
-                Utilizator utilizator = new Utilizator(firstName, lastName);
+                Utilizator utilizator = new Utilizator(firstName, lastName, username);
                 utilizator.setId(id);
                 users.add(utilizator);
             }
@@ -54,8 +55,27 @@ public class UserDBRepository implements Repository<Long, Utilizator> {
             rs.next();
             String firstname = rs.getString("first_name");
             String lastname = rs.getString("last_name");
-            Utilizator user = new Utilizator(firstname, lastname);
+            String username = rs.getString("username");
+            Utilizator user = new Utilizator(firstname, lastname, username);
             user.setId(aLong);
+            return user;
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @Override
+    public Utilizator findOneString(String usern) {
+        String sql = String.format("SELECT * FROM users WHERE username = '%s'", usern);
+        try(Connection connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery()){
+            rs.next();
+            String firstname = rs.getString("first_name");
+            String lastname = rs.getString("last_name");
+            Long id = rs.getLong("id");
+            Utilizator user = new Utilizator(firstname, lastname, usern);
+            user.setId(id);
             return user;
         }catch (SQLException e) {
             e.printStackTrace();
@@ -66,8 +86,8 @@ public class UserDBRepository implements Repository<Long, Utilizator> {
     @Override
     public Utilizator save(Utilizator entity) {
         validator.validate(entity);
-        String sql = String.format("INSERT INTO users(id, first_name, last_name) values ('%s', '%s', '%s')",
-                entity.getId(), entity.getFirstName(), entity.getLastName());
+        String sql = String.format("INSERT INTO users(id, first_name, last_name, username) values ('%s', '%s', '%s', '%s')",
+                entity.getId(), entity.getFirstName(), entity.getLastName(), entity.getUsername());
         try(Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement statement = connection.prepareStatement(sql))
             {
@@ -97,8 +117,8 @@ public class UserDBRepository implements Repository<Long, Utilizator> {
     @Override
     public Utilizator update(Utilizator entity) {
         validator.validate(entity);
-        String sql = String.format("UPDATE users SET first_name = '%s', last_name = '%s' WHERE id = '%s' ",
-                entity.getFirstName(), entity.getLastName(), entity.getId().toString());
+        String sql = String.format("UPDATE users SET first_name = '%s', last_name = '%s', username = '%s' WHERE id = '%s' ",
+                entity.getFirstName(), entity.getLastName(), entity.getId().toString(), entity.getUsername());
         try(Connection connection = DriverManager.getConnection(url, username, password);
         PreparedStatement statement = connection.prepareStatement(sql)){
             statement.executeUpdate();

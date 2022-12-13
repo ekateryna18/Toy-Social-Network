@@ -1,3 +1,4 @@
+/*
 package repository.memory;
 
 import domain.Entity;
@@ -11,30 +12,36 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+*/
 /**
  * Repository for in memory persistance
  * @param <ID> the id of the entity
  * @param <E> the entity used for the repository
- */
+ *//*
+
 public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<ID,E> {
 
     //private final AbstractValidator<E> validator;
     private final Validator<E> validator;
     Map<ID,E> entities;
-    /**
+    */
+/**
      * constructor of repository
      * @param validator the specific validator
-     */
+     *//*
+
     public InMemoryRepository(Validator<E> validator) {
         this.validator = validator;
         entities=new HashMap<ID,E>();
     }
 
 
-    /*public InMemoryRepository(ValidatorStrategy strategy) {
+    */
+/*public InMemoryRepository(ValidatorStrategy strategy) {
         this.validator = ValidatorFactory.getInstance().createValidator(strategy);
         entities=new HashMap<ID,E>();
-    }*/
+    }*//*
+
 
 
     @Override
@@ -88,3 +95,4 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
     }
 }
 
+*/
