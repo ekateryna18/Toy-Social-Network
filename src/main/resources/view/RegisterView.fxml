@@ -59,7 +59,7 @@
                         <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                   </Text>
-                  <TextField id="usernameText" fx:id="nameText" focusTraversable="false" prefHeight="26.0" prefWidth="147.0" promptText="Name" style="-fx-background-color: #404258; -fx-border-color: #9BA3EB; -fx-border-radius: 5; -fx-text-fill: white;" GridPane.columnIndex="1" />
+                  <TextField id="usernameText" fx:id="nameText" focusTraversable="false" pickOnBounds="false" prefHeight="26.0" prefWidth="147.0" promptText="Name" style="-fx-background-color: #404258; -fx-border-color: #9BA3EB; -fx-border-radius: 5; -fx-text-fill: white;" GridPane.columnIndex="1" />
                   <TextField id="usernameText" fx:id="surnameText" focusTraversable="false" prefHeight="26.0" prefWidth="190.0" promptText="Surname" style="-fx-background-color: #404258; -fx-border-color: #9BA3EB; -fx-border-radius: 5; -fx-text-fill: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField id="usernameText" fx:id="usernameText" focusTraversable="false" prefHeight="26.0" prefWidth="148.0" promptText="Username" style="-fx-background-color: #404258; -fx-border-color: #9BA3EB; -fx-border-radius: 5; -fx-text-fill: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <PasswordField id="passwordText" fx:id="passwordText" focusTraversable="false" prefHeight="26.0" prefWidth="190.0" promptText="Password" style="-fx-background-color: #404258; -fx-border-color: #9BA3EB; -fx-border-radius: 5; -fx-text-fill: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -75,6 +75,11 @@
                   <Font size="15.0" />
                </font>
             </Label>
+            <Button id="logBack" fx:id="logBack" layoutX="309.0" layoutY="300.0" mnemonicParsing="false" onAction="#log_back" style="-fx-background-color: #8cbf91;" text="Log in" textFill="#126313">
+               <font>
+                  <Font name="Berlin Sans FB" size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <ImageView fitHeight="338.0" fitWidth="360.0" layoutY="118.0" pickOnBounds="true" style="-fx-background-radius: 10;">

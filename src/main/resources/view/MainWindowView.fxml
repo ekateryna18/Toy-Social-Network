@@ -17,7 +17,14 @@
          <children>
             <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="98.0" prefWidth="238.0" style="-fx-background-color: #41475e; -fx-background-radius: 15; -fx-border-color: #9BA3EB; -fx-border-radius: 15;">
                <children>
-                  <AnchorPane layoutX="14.0" layoutY="12.0" prefHeight="74.0" prefWidth="95.0" style="-fx-background-color: #F6BE00; -fx-background-radius: 20;" />
+                  <AnchorPane layoutX="14.0" layoutY="12.0" pickOnBounds="false" prefHeight="74.0" prefWidth="95.0" style="-fx-background-color: #F6BE00; -fx-background-radius: 20;">
+                     <children>
+                        <ImageView fitHeight="59.0" fitWidth="82.0" layoutX="6.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/catgif.gif" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
                   <Text fill="WHITE" layoutX="119.0" layoutY="25.0" opacity="0.56" strokeType="OUTSIDE" strokeWidth="0.0" text="User logged in">
                      <font>
                         <Font name="Berlin Sans FB" size="14.0" />
@@ -48,17 +55,17 @@
             </AnchorPane>
             <AnchorPane layoutX="14.0" layoutY="134.0" prefHeight="244.0" prefWidth="238.0" style="-fx-background-color: #41475e; -fx-background-radius: 15; -fx-border-color: #9BA3EB; -fx-border-radius: 15;">
                <children>
-                  <Button id="addButton" fx:id="addButton" layoutX="21.0" layoutY="63.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #9BA3EB;" text="Add friend" textFill="WHITE">
+                  <Button id="addButton" fx:id="addButton" layoutX="21.0" layoutY="63.0" mnemonicParsing="false" onAction="#handleAddFriend" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #9BA3EB;" text="Add friend" textFill="WHITE">
                      <font>
                         <Font name="Berlin Sans FB" size="16.0" />
                      </font>
                   </Button>
-                  <Button id="showButton" fx:id="showButton" layoutX="21.0" layoutY="147.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #9BA3EB;" text="Show friends" textFill="WHITE">
+                  <Button id="showButton" fx:id="showButton" layoutX="21.0" layoutY="147.0" mnemonicParsing="false" onAction="#handleShowFriends" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #9BA3EB;" text="Show friends" textFill="WHITE">
                      <font>
                         <Font name="Berlin Sans FB" size="16.0" />
                      </font>
                   </Button>
-                  <Button id="removeButton" fx:id="removeButton" layoutX="21.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleDeleteMessage" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #9BA3EB;" text="Remove friend" textFill="WHITE">
+                  <Button id="removeButton" fx:id="removeButton" layoutX="21.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleRemoveFriends" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #9BA3EB;" text="Remove friend" textFill="WHITE">
                      <font>
                         <Font name="Berlin Sans FB" size="16.0" />
                      </font>
@@ -69,24 +76,34 @@
                         <Image url="@../images/magnifier.png" />
                      </image>
                   </ImageView>
-                  <Button id="requestsButton" fx:id="requestsButton" layoutX="21.0" layoutY="190.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #9BA3EB;" text="Friend requests" textFill="WHITE">
+                  <Button id="requestsButton" fx:id="requestsButton" layoutX="21.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleFriendRequest" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #9BA3EB;" text="Friend requests" textFill="WHITE">
                      <font>
                         <Font name="Berlin Sans FB" size="16.0" />
                      </font>
                   </Button>
+                  <Button id="yesAddButton" fx:id="yesAddButton" layoutX="174.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleAcceptAddFriend" style="-fx-background-color: #8cbf91;" text="Add" textFill="WHITE" visible="false">
+                     <font>
+                        <Font name="Berlin Sans FB" size="12.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
-            <Button id="acceptButton" fx:id="acceptButton" layoutX="122.0" layoutY="421.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #8cbf91;" text="Accept" textFill="WHITE">
+            <Button id="acceptButton" fx:id="acceptButton" layoutX="23.0" layoutY="429.0" mnemonicParsing="false" onAction="#acceptReq" prefHeight="28.0" prefWidth="95.0" style="-fx-background-color: #8cbf91;" text="Accept" textFill="WHITE" visible="false">
                <font>
                   <Font name="Berlin Sans FB" size="16.0" />
                </font>
             </Button>
-            <Button id="declineButton" fx:id="declineButton" layoutX="122.0" layoutY="474.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #bf7e7e;" text="Decline" textFill="WHITE">
+            <Button id="declineButton" fx:id="declineButton" layoutX="146.0" layoutY="429.0" mnemonicParsing="false" onAction="#declinetReq" prefHeight="27.0" prefWidth="95.0" style="-fx-background-color: #bf7e7e;" text="Decline" textFill="WHITE" visible="false">
                <font>
                   <Font name="Berlin Sans FB" size="16.0" />
                </font>
             </Button>
-            <Label layoutX="14.0" layoutY="519.0" prefHeight="18.0" prefWidth="238.0" text="Request sent at : " textFill="WHITE" />
+            <Label id="infoLabel" fx:id="infoLabel" layoutX="14.0" layoutY="403.0" prefHeight="18.0" prefWidth="238.0" text="Request sent at : " textFill="WHITE" visible="false">
+               <font>
+                  <Font name="Berlin Sans FB" size="16.0" />
+               </font></Label>
+            <Button id="logOutbttn" fx:id="logOutbttn" layoutX="23.0" layoutY="528.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #bf7e7e;" text="Log out" textFill="WHITE" />
+            <Button id="cancelButton" fx:id="cancelButton" layoutX="215.0" layoutY="528.0" mnemonicParsing="false" onAction="#cancelB" style="-fx-background-color: #8086bd;" text="Cancel" textFill="WHITE" visible="false" />
          </children>
       </AnchorPane>
    </children>

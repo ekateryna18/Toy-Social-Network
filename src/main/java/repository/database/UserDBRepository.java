@@ -128,4 +128,9 @@ public class UserDBRepository implements Repository<Long, Utilizator> {
             return entity;
         }
     }
+
+    @Override
+    public Utilizator findOneBySQL(String Sql) {
+        return null;
+    }
 }

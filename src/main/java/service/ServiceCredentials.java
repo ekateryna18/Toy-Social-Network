@@ -39,7 +39,7 @@ public class ServiceCredentials{
             return null;
         String passw = cr.getHashedPassword();
         if(passw.equals(password)){
-            System.out.println(username + "logged in");
+            //System.out.println(username + "logged in");
             return userRepo.findOneString(username);
         }
         return null;

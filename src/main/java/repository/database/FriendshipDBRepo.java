@@ -115,4 +115,9 @@ public class FriendshipDBRepo implements Repository<Long, Friendship> {
     public Friendship findOneString(String str) {
         return null;
     }
+
+    @Override
+    public Friendship findOneBySQL(String Sql) {
+        return null;
+    }
 }

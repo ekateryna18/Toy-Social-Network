@@ -6,6 +6,8 @@ import domain.validators.ValidationException;
 import repository.Repository;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -58,6 +60,42 @@ public class Service implements ServiceIn{
         u.setId(IDuser++);
         userRepo.save(u);
     }
+    public Utilizator findUserByUsername(String username){
+        for(Utilizator u : userRepo.findAll()){
+            if (u.getUsername().equals(username))
+                return u;
+        }
+        return null;
+    }
+    public Utilizator findUser(Long id){
+        return userRepo.findOne(id);
+    }
+    public List<Utilizator> getFriends(String usern){
+        List<Utilizator> list = new ArrayList<>();
+        Long idu = userRepo.findOneString(usern).getId();
+        for(Friendship u : friendshipRepo.findAll()){
+            if(u.getId1().equals(idu)){
+                list.add(userRepo.findOne(u.getId2()));
+            }
+            else if(u.getId2().equals(idu)){
+                list.add(userRepo.findOne(u.getId1()));
+            }
+        }
+        return list;
+    }
+
+    public List<Utilizator> getNONFriends(String usern){
+        List<Utilizator> list = new ArrayList<>();
+        List<Utilizator> lis_Fr = getFriends(usern);
+        Utilizator thisU = userRepo.findOneString(usern);
+        for(Utilizator u : userRepo.findAll()){
+            if(!lis_Fr.contains(u) && !u.equals(thisU)){
+                list.add(u);
+            }
+        }
+        return list;
+    }
+
     @Override
     public void addFrienship(Long id1, Long id2){
         if(userRepo.findOne(id1) != null && userRepo.findOne(id2) != null)

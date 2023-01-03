@@ -17,7 +17,7 @@ public class DBRepositoryCredentials implements Repository<Long, Credentials> {
         this.username = username;
         this.password = password;
     }
-    private Credentials findOneBySQL(String sql){
+    public Credentials findOneBySQL(String sql){
         try(Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()){

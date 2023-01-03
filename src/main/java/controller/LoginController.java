@@ -1,5 +1,6 @@
 package controller;
 import domain.Utilizator;
+import domain.validators.FriendshipValidator;
 import domain.validators.UtilizatorValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,8 +15,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import repository.database.DBRepositoryCredentials;
+import repository.database.FriendshipDBRepo;
+import repository.database.RequestsDBRepository;
 import repository.database.UserDBRepository;
+import service.Service;
 import service.ServiceCredentials;
+import service.ServiceFriendships;
 
 import java.io.IOException;
 
@@ -35,7 +40,7 @@ public class LoginController {
     public void setService(ServiceCredentials srv){
         this.srv = srv;
     }
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event) throws IOException{
         String username = usernameField.getText();
         String password = passwordField.getText();
         Utilizator u = srv.loginUser(username,password);
@@ -43,8 +48,22 @@ public class LoginController {
             loginLabel.setText("Username or password incorrect");
             loginLabel.setTextFill(Paint.valueOf("red"));
         }
-        else{
+        else try {
             loginLabel.setText("Succesfully logging in!");
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/view/MainWindowView.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            MainWindController mainController = fxmlLoader.getController();
+            UserDBRepository userRepo = new UserDBRepository("jdbc:postgresql://localhost:5432/socialnetwork", "postgres", "postgres", new UtilizatorValidator());
+            FriendshipDBRepo frRepo = new FriendshipDBRepo("jdbc:postgresql://localhost:5432/socialnetwork", "postgres", "postgres", new FriendshipValidator());
+            RequestsDBRepository reqRepo = new RequestsDBRepository("jdbc:postgresql://localhost:5432/socialnetwork", "postgres", "postgres");
+            mainController.setService(new Service(userRepo,frRepo),new ServiceFriendships(frRepo,reqRepo),u.getFirstName(),username,u.getId());
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setTitle("Social-network-app");
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

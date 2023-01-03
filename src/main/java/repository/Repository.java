@@ -22,6 +22,7 @@ public interface Repository<ID, E extends Entity<ID>> {
      */
     E findOne(ID id);
     E findOneString(String str);
+    E findOneBySQL(String Sql);
     /**
      * function to get all the entities
      * @return all entities
